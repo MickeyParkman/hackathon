@@ -77,11 +77,7 @@ public class Game extends JPanel implements Runnable
    
    public void collapseWall(int tileNum, int wallNum, DisjSets ds){   
       int currTileX = tileNum % WIDTH;
-      int currTileY;
-      if(tileNum != 0)
-         currTileY = (int) tileNum / WIDTH - 1;
-      else
-         currTileY = 0; 
+      int currTileY = (int)(tileNum / WIDTH);
               
       if(wallNum == Tile.TOP){
          collapseHelper(currTileX, currTileY, currTileX, currTileY - 1, Tile.TOP, Tile.BOTTOM, ds);
@@ -94,7 +90,8 @@ public class Game extends JPanel implements Runnable
       }
    }
    
-   private void collapseHelper(int currTileX, int currTileY, int nextTileX, int nextTileY, int currWallSide, int nextWallSide, DisjSets ds){
+   private void collapseHelper(int currTileX, int currTileY, int nextTileX, int nextTileY, 
+                              int currWallSide, int nextWallSide, DisjSets ds){
       tiles[currTileX][currTileY].walls[currWallSide] = false;      
       if(nextTileY > -1 && nextTileY < WIDTH && nextTileX > -1 && nextTileX < WIDTH){
          ds.union(WIDTH * nextTileY + nextTileX, WIDTH * currTileY + currTileX);

@@ -4,7 +4,7 @@ public class DisjSets {
    public DisjSets(int dimension) {
       int arrSize = dimension * dimension;
       arr = new int[arrSize];
-      for(int i : arr) {
+      for(int i = 0; i < arr.length; i++) {
          arr[i] = -1;
       }
       arr[0] = -2;
@@ -12,10 +12,12 @@ public class DisjSets {
    }
    
    public void union(int x, int y) {
-      if(arr[x] < arr[y])
-         arr[y] = x;
+      int fx = find(x);
+      int fy = find(y);
+      if(fx < fy)
+         arr[fy] = fx;
       else
-         arr[x] = y;
+         arr[fx] = fy;
    }
    
    public int find(int x) {
