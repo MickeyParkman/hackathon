@@ -69,8 +69,8 @@ public class Game extends JPanel implements Runnable
       DisjSets ds = new DisjSets(WIDTH);
       int arrSize = WIDTH * WIDTH;
       while (ds.find(0) != ds.find(arrSize - 1)) {
-         int tileNum = (int) Math.random() * arrSize;
-         int wall = (int) Math.random() * 4;
+         int tileNum = (int) (Math.random() * arrSize);
+         int wall = (int) (Math.random() * 4);
          collapseWall(tileNum, wall, ds);
       }
    }
