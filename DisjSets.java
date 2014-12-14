@@ -20,7 +20,7 @@ public class DisjSets {
    
    public int find(int x) {
       if(arr[x] < 0)  
-         return arr[x];
+         return x;
       else
          return find(arr[x]);
    }
