@@ -1,4 +1,4 @@
-public class Start
+public class Start extends JFrame
 {
    public static void main(String[] args)
    {
