@@ -30,7 +30,6 @@ public class Game extends JPanel implements Runnable
       g.fillRect(0, 0, WINDOW_SIZE, WINDOW_SIZE);
       
       g.setColor(Color.WHITE);
-      g.drawString("Michael is Gay", 100, 100);
       for(int i = 0; i < tiles.length; i++){
          for(int j = 0; j < tiles[i].length; j++){
             Tile temp = tiles[i][j];
