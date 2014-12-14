@@ -63,12 +63,12 @@ public class Game extends JPanel implements Runnable
          }   
    }
    
-   
+   // builds maze using disjoint sets
    public void buildMaze()
    {
       DisjSets ds = new DisjSets(WIDTH);
-      int arrSize = WIDTH * WIDTH;
-      while (ds.find(0) != ds.find(arrSize - 1)) {
+      int arrSize = WIDTH * WIDTH; // size of array is dimension squared
+      while (ds.find(0) != ds.find(arrSize - 1)) { // while entrance and exit are not in same set
          int tileNum = (int) (Math.random() * arrSize);
          int wall = (int) (Math.random() * 4);
          collapseWall(tileNum, wall, ds);
@@ -76,27 +76,36 @@ public class Game extends JPanel implements Runnable
    }
    
    public void collapseWall(int tileNum, int wallNum, DisjSets ds){   
-      int currTileX = tileNum % WIDTH;
-      int currTileY = (int)(tileNum / WIDTH);
-              
+      int tileX = (int)(tileNum / WIDTH); // finds the x coordinate
+      int tileY = tileNum % WIDTH; // finds the y coordinate
       if(wallNum == Tile.TOP){
-         collapseHelper(currTileX, currTileY, currTileX, currTileY - 1, Tile.TOP, Tile.BOTTOM, ds);
+         tiles[tileX][tileY].walls[Tile.TOP] = false;      
+         if(tileY > -1 && tileY < WIDTH && (tileX - 1)> -1 && (tileX - 1) < WIDTH){
+            ds.union(WIDTH * (tileX - 1) + tileY, WIDTH * tileX + tileY);
+            tiles[(tileX - 1)][tileY].walls[Tile.BOTTOM] = false;
+         }
+      //   collapseHelper(currTileX, currTileY, currTileX - 1, currTileY, Tile.TOP, Tile.BOTTOM, ds);
       }else if(wallNum == Tile.RIGHT){
-         collapseHelper(currTileX, currTileY, currTileX + 1, currTileY, Tile.RIGHT, Tile.LEFT, ds);
+         tiles[tileX][tileY].walls[Tile.RIGHT] = false;      
+         if((tileY + 1) > -1 && (tileY + 1) < WIDTH && tileX > -1 && tileX < WIDTH){
+            ds.union(WIDTH * tileX + (tileY + 1), WIDTH * tileX + tileY);
+            tiles[tileX][(tileY + 1)].walls[Tile.LEFT] = false;
+         }
+         //collapseHelper(currTileX, currTileY, currTileX, currTileY +1, Tile.RIGHT, Tile.LEFT, ds);
       }else if(wallNum == Tile.BOTTOM){
-         collapseHelper(currTileX, currTileY, currTileX, currTileY + 1, Tile.BOTTOM, Tile.TOP, ds);  
+         tiles[tileX][tileY].walls[Tile.BOTTOM] = false;      
+         if(tileY > -1 && tileY < WIDTH && (tileX + 1) > -1 && (tileX + 1) < WIDTH){
+            ds.union(WIDTH * (tileX + 1) + tileY, WIDTH * tileX + tileY);
+            tiles[(tileX + 1)][tileY].walls[Tile.TOP] = false;
+         }
+         //collapseHelper(currTileX, currTileY, currTileX + 1, currTileY, Tile.BOTTOM, Tile.TOP, ds);  
       }else if(wallNum == Tile.LEFT){
-         collapseHelper(currTileX, currTileY, currTileX - 1, currTileY, Tile.LEFT, Tile.RIGHT, ds);
-      }
-   }
-   
-   private void collapseHelper(int currTileX, int currTileY, int nextTileX, int nextTileY, 
-                              int currWallSide, int nextWallSide, DisjSets ds){
-      tiles[currTileX][currTileY].walls[currWallSide] = false;      
-      if(nextTileY > -1 && nextTileY < WIDTH && nextTileX > -1 && nextTileX < WIDTH){
-         ds.union(WIDTH * nextTileY + nextTileX, WIDTH * currTileY + currTileX);
-         tiles[nextTileX][nextTileY].walls[nextWallSide] = false;
-      }
-   }
+         tiles[tileX][tileY].walls[Tile.LEFT] = false;      
+         if((tileY - 1) > -1 && (tileY - 1) < WIDTH && tileX > -1 && tileX < WIDTH){
+            ds.union(WIDTH * tileX + (tileY - 1), WIDTH * tileX + tileY);
+            tiles[tileX][(tileY - 1)].walls[Tile.RIGHT] = false;
 
+         }//collapseHelper(currTileX, currTileY, currTileX, currTileY - 1, Tile.LEFT, Tile.RIGHT, ds);
+      }
+   }   
 }
