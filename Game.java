@@ -8,6 +8,8 @@ public class Game extends JPanel implements Runnable
    public void paint(Graphics g)
    {
       g.setBackground(Color.BLACK);
+      
+      
    }
    
    public void run()
