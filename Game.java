@@ -44,7 +44,8 @@ public class Game extends JPanel implements Runnable
    }
    
    
-   public void buildMaze() {
+   public void buildMaze()
+   {
       DisjSets ds = new DisjSets(WIDTH);
       int arrSize = WIDTH * WIDTH;
       while (ds.find(0) != ds.find(arrSize - 1)) {
