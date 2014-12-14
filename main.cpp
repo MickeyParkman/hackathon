@@ -4,7 +4,10 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    Serial* SP = new Serial("\\\\.\\COM3");    // adjust as needed
+
+	if (SP->IsConnected())
+		printf("We're connected");
     return 0;
 
 	
