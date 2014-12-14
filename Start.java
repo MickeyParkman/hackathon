@@ -1,7 +1,17 @@
+import javax.swing.JFrame;
 public class Start extends JFrame
-{
-   public static void main(String[] args)
+{   
+   
+   public Start()
    {
-      System.out.println("Hello World");
+      setContentPane(new Game());
+      pack();
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      setVisible(true);
+   }
+   
+   public static void main(String[] args)
+   {      
+      new Start();   
    }
 }
