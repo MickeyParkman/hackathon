@@ -14,6 +14,11 @@ public class Game extends JPanel implements Runnable
    {
       setPreferredSize(new Dimension(WINDOW_SIZE, WINDOW_SIZE));
       tiles = new Tile[WIDTH][WIDTH];
+      for(int i = 0; i < tiles.length; i++){
+         for(int j = 0; j < tiles[i].length; j++){
+            tiles[i][j] = new Tile();
+         }
+      }
       tileSize = WINDOW_SIZE / WIDTH;
       wallSize = tileSize / 8;
       buildMaze();
@@ -70,41 +75,30 @@ public class Game extends JPanel implements Runnable
       }
    }
    
-   public void collapseWall(int tileNum, int wallNum, DisjSets ds){
+   public void collapseWall(int tileNum, int wallNum, DisjSets ds){   
       int currTileX = tileNum % WIDTH;
       int currTileY;
       if(tileNum != 0)
          currTileY = (int) tileNum / WIDTH - 1;
       else
-         currTileY = 0;
-         
-      int nextTileX = 0;
-      int nextTileY = 0;
-      
+         currTileY = 0; 
+              
       if(wallNum == Tile.TOP){
-         nextTileX = currTileX;
-         nextTileY = currTileY - 1;
-         tiles[currTileX][currTileY].walls[Tile.TOP] = false;
-         tiles[nextTileX][nextTileY].walls[Tile.BOTTOM] = false;
+         collapseHelper(currTileX, currTileY, currTileX, currTileY - 1, Tile.TOP, Tile.BOTTOM, ds);
       }else if(wallNum == Tile.RIGHT){
-         nextTileX = currTileX + 1;
-         nextTileY = currTileY;
-         tiles[currTileX][currTileY].walls[Tile.RIGHT] = false;
-         tiles[nextTileX][nextTileY].walls[Tile.LEFT] = false;
+         collapseHelper(currTileX, currTileY, currTileX + 1, currTileY, Tile.RIGHT, Tile.LEFT, ds);
       }else if(wallNum == Tile.BOTTOM){
-         nextTileX = currTileX;
-         nextTileY = currTileY + 1;
-         tiles[currTileX][currTileY].walls[Tile.BOTTOM] = false;
-         tiles[nextTileX][nextTileY].walls[Tile.TOP] = false;  
+         collapseHelper(currTileX, currTileY, currTileX, currTileY + 1, Tile.BOTTOM, Tile.TOP, ds);  
       }else if(wallNum == Tile.LEFT){
-         nextTileX = currTileX - 1;
-         nextTileY = currTileY;
-         tiles[currTileX][currTileY].walls[Tile.LEFT] = false;
-         tiles[nextTileX][nextTileY].walls[Tile.RIGHT] = false;
+         collapseHelper(currTileX, currTileY, currTileX - 1, currTileY, Tile.LEFT, Tile.RIGHT, ds);
       }
-      
+   }
+   
+   private void collapseHelper(int currTileX, int currTileY, int nextTileX, int nextTileY, int currWallSide, int nextWallSide, DisjSets ds){
+      tiles[currTileX][currTileY].walls[currWallSide] = false;      
       if(nextTileY > -1 && nextTileY < WIDTH && nextTileX > -1 && nextTileX < WIDTH){
-         ds.union(WIDTH * nextTileY + nextTileX, tileNum);
+         ds.union(WIDTH * nextTileY + nextTileX, WIDTH * currTileY + currTileX);
+         tiles[nextTileX][nextTileY].walls[nextWallSide] = false;
       }
    }
 
