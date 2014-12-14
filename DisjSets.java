@@ -19,7 +19,7 @@ public class DisjSets {
    }
    
    public int find(int x) {
-      if(arr[x] = -1)  
+      if(arr[x] == -1)  
          return x;
       else
          find(arr[x]);
