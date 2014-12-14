@@ -5,7 +5,7 @@ public class Game extends JPanel implements Runnable
 {
    private boolean running = true;
    private static final int WINDOW_SIZE = 500;
-   private static final int WIDTH = 8;
+   private static final int WIDTH = 2;
    private static final int BORDER = 10;
    private static Tile[][] tiles;
    private final int tileSize, wallSize;
@@ -34,15 +34,22 @@ public class Game extends JPanel implements Runnable
          for(int j = 0; j < tiles[i].length; j++){
             Tile temp = tiles[i][j];
             if(temp.walls[Tile.TOP]){
+               System.out.println("grid number: " + i + ", " + j + temp.walls[Tile.TOP]);
                g.fillRect(tileSize * i, tileSize * j, tileSize, wallSize);
             }
             if(temp.walls[Tile.RIGHT]){
+                           System.out.println("grid number: " + i + ", " + j + temp.walls[Tile.RIGHT]);
+
                g.fillRect(tileSize * i + tileSize - wallSize, tileSize * j, wallSize, tileSize);
             }
             if(temp.walls[Tile.BOTTOM]){
+               System.out.println("grid number: " + i + ", " + j + temp.walls[Tile.BOTTOM]);
+
                g.fillRect(tileSize * i, tileSize * j + tileSize - wallSize, tileSize, wallSize);
             }
             if(temp.walls[Tile.LEFT]){
+                           System.out.println("grid number: " + i + ", " + j + temp.walls[Tile.LEFT]);
+
                g.fillRect(tileSize * i, tileSize * j, wallSize, tileSize);
             }
              
