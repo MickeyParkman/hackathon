@@ -21,6 +21,13 @@ public class Game extends JPanel implements Runnable
       
       g.setColor(Color.WHITE);
       g.drawString("Michael is Gay", 100, 100);
+      for(int i = 0; i < tiles.length; i++)
+      {
+         for(Tile t : tiles[i])
+         {
+            t.paint();
+         }
+      }
    }
    
    public void run()
