@@ -79,33 +79,32 @@ public class Game extends JPanel implements Runnable
       int tileX = (int)(tileNum / WIDTH); // finds the x coordinate
       int tileY = tileNum % WIDTH; // finds the y coordinate
       if(wallNum == Tile.TOP){
-         tiles[tileX][tileY].walls[Tile.TOP] = false;      
-         if(tileY > -1 && tileY < WIDTH && (tileX - 1)> -1 && (tileX - 1) < WIDTH){
+         if(tileY > -1 && tileY < WIDTH && (tileX - 1) > -1 && (tileX - 1) < WIDTH){
+            tiles[tileX][tileY].walls[Tile.TOP] = false;      
             ds.union(WIDTH * (tileX - 1) + tileY, WIDTH * tileX + tileY);
             tiles[(tileX - 1)][tileY].walls[Tile.BOTTOM] = false;
          }
       //   collapseHelper(currTileX, currTileY, currTileX - 1, currTileY, Tile.TOP, Tile.BOTTOM, ds);
       }else if(wallNum == Tile.RIGHT){
-         tiles[tileX][tileY].walls[Tile.RIGHT] = false;      
-         if((tileY + 1) > -1 && (tileY + 1) < WIDTH && tileX > -1 && tileX < WIDTH){
+         if((tileY + 1) > -1 && (tileY + 1)< WIDTH && tileX > -1 && tileX < WIDTH){
+            tiles[tileX][tileY].walls[Tile.RIGHT] = false;      
             ds.union(WIDTH * tileX + (tileY + 1), WIDTH * tileX + tileY);
             tiles[tileX][(tileY + 1)].walls[Tile.LEFT] = false;
          }
          //collapseHelper(currTileX, currTileY, currTileX, currTileY +1, Tile.RIGHT, Tile.LEFT, ds);
       }else if(wallNum == Tile.BOTTOM){
-         tiles[tileX][tileY].walls[Tile.BOTTOM] = false;      
-         if(tileY > -1 && tileY < WIDTH && (tileX + 1) > -1 && (tileX + 1) < WIDTH){
+         if(tileY > -1 && tileY < WIDTH && (tileX + 1)> -1 && (tileX + 1) < WIDTH){
+           tiles[tileX][tileY].walls[Tile.BOTTOM] = false;          
             ds.union(WIDTH * (tileX + 1) + tileY, WIDTH * tileX + tileY);
             tiles[(tileX + 1)][tileY].walls[Tile.TOP] = false;
          }
          //collapseHelper(currTileX, currTileY, currTileX + 1, currTileY, Tile.BOTTOM, Tile.TOP, ds);  
       }else if(wallNum == Tile.LEFT){
-         tiles[tileX][tileY].walls[Tile.LEFT] = false;      
          if((tileY - 1) > -1 && (tileY - 1) < WIDTH && tileX > -1 && tileX < WIDTH){
+            tiles[tileX][tileY].walls[Tile.LEFT] = false;       
             ds.union(WIDTH * tileX + (tileY - 1), WIDTH * tileX + tileY);
             tiles[tileX][(tileY - 1)].walls[Tile.RIGHT] = false;
-
          }//collapseHelper(currTileX, currTileY, currTileX, currTileY - 1, Tile.LEFT, Tile.RIGHT, ds);
       }
-   }   
-}
+   }      
+}     
