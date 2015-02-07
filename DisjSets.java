@@ -17,12 +17,12 @@ public class DisjSets {
       if(fx < fy)
          arr[fy] = fx;
       else
-         if(fx != fy)
+         //if(fx != fy)
             arr[fx] = fy;
    }
    
    public int find(int x) {
-      if(arr[x] < 0){
+      if(arr[x] < 0 || arr[x] == x){
          return x;
       }
       else{
