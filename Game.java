@@ -69,7 +69,7 @@ public class Game extends JPanel implements Runnable
             int wall = (int) (Math.random() * 4); 
             collapseWall(tileNum, wall, ds);            
             repaint();
-            Thread.sleep(10);
+            Thread.sleep(100);
          }    
       } catch(InterruptedException e) {
          e.printStackTrace();
