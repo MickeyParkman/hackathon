@@ -28,18 +28,13 @@ public class DisjSets {
          return true;
       }
       else
-<<<<<<< HEAD
       {
          return false;
       }
-=======
-         //if(fx != fy)
-            arr[fx] = fy;
->>>>>>> origin/master
    }
    
    public int find(int x) {
-      if(arr[x] < 0 || arr[x] == x){
+      if(arr[x] < 0){
          return x;
       }
       else{
