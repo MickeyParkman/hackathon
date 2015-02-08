@@ -5,7 +5,9 @@ public class Start extends JFrame
 
    public Start()
    {
-      setContentPane(new Game());
+      Game game = new Game();
+      setContentPane(game);
+      addKeyListener(new KeyHandler(game));
       pack();
       setLocationRelativeTo(null);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
