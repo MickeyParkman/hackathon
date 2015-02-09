@@ -68,7 +68,7 @@ public class Game extends JPanel implements Runnable
       winner = true;
       try{
          //draw the end screen
-         Thread.sleep(10);
+         Thread.sleep(5);
          repaint();   
       }
       catch(InterruptedException e)
