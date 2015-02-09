@@ -1,22 +1,25 @@
+package maze;
+
 import java.awt.Graphics;
 import java.awt.Color;
+
+import maze.tiles.*;
+
 public class Map implements Runnable
 {
-   private static final int WIDTH = 40;
+   private static final int WIDTH = 20;
    private static int height = 0;
    private static Tile[][] tiles;
-   private final int tileSize, wallSize;
    private static final int MIN_WALLS = 2;
    private boolean creating;
    
    public Map(int windowWidth, int windowHeight)
    {
       //the tile size depends on the number of tiles desired width wise and the width of the screen
-      tileSize = windowWidth / WIDTH;
+      int tileSize = windowWidth / WIDTH;
+      Tile.setTileSize(tileSize);
       //the number of tiles height wise depends on the size of the tiles and the height of the window
       height = windowHeight / tileSize;
-      //each wall is 1/8 of the size of the tile
-      wallSize = tileSize / 8;
       //initialize all the tiles in the window
       tiles = new Tile[WIDTH][height];
       for(int i = 0; i < tiles.length; i++){
@@ -51,7 +54,6 @@ public class Map implements Runnable
    
    public boolean isCreating() { return creating; }  
    public Tile[][] getTiles(){ return tiles; } 
-   public int getTileSize() { return tileSize; }
    
    public void collapseWall(int tileNum, int wallNum, DisjSets ds){   
       int tileY = (int)(tileNum / WIDTH); // finds the x coordinate
@@ -97,21 +99,8 @@ public class Map implements Runnable
       g.setColor(Color.WHITE);
       for(int i = 0; i < tiles.length; i++){
          for(int j = 0; j < tiles[i].length; j++){
-            Tile temp = tiles[i][j];
-            //draw all of the walls of the current tile
-            if(temp.walls[Tile.TOP]){
-               g.fillRect(tileSize * i, tileSize * j, tileSize, wallSize);
-            }
-            if(temp.walls[Tile.RIGHT]){
-               g.fillRect(tileSize * i + tileSize - wallSize, tileSize * j, wallSize, tileSize);
-            }
-            if(temp.walls[Tile.BOTTOM]){
-               g.fillRect(tileSize * i, tileSize * j + tileSize - wallSize, tileSize, wallSize);
-            }
-            if(temp.walls[Tile.LEFT]){
-               g.fillRect(tileSize * i, tileSize * j, wallSize, tileSize);
-            }
-             
+            tiles[i][j].paint(g, i, j);
+            //draw all of the walls of the current tile                         
          }
       }
    }

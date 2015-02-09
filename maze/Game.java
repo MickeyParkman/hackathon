@@ -1,3 +1,5 @@
+package maze;
+
 import java.awt.*;
 import javax.swing.JPanel;
 
@@ -39,7 +41,7 @@ public class Game extends JPanel implements Runnable
       {
          try{
             repaint();
-            Thread.sleep(100);
+            Thread.sleep(10);
          }
          catch(InterruptedException e)
          {
@@ -47,7 +49,7 @@ public class Game extends JPanel implements Runnable
          }
       }
       //since the map is done, create the player
-      player = new Player(map.getTiles(), map.getTileSize());
+      player = new Player(map.getTiles(), maze.tiles.Tile.tileSize,maze.tiles.Tile.tileSize / 2, maze.tiles.Tile.tileSize / 2);
       //as long as the player hasn't reached the finish line, keep updating
       while(!player.atFinish())
       {
@@ -55,7 +57,7 @@ public class Game extends JPanel implements Runnable
             //move the player if the correct keys are being pressed
             player.move();
             repaint();
-            Thread.sleep(100);
+            Thread.sleep(10);
          }
          catch(InterruptedException e)
          {
@@ -95,9 +97,9 @@ public class Game extends JPanel implements Runnable
          g.setColor(Color.WHITE);
          //paint "You won" and how to start a new game
          g.setFont(new Font("Times New Roman", Font.BOLD, 50));
-         g.drawString("YOU WON!", WINDOW_WIDTH / 2 - 175, WINDOW_HEIGHT / 2 - 10);
+         g.drawString("YOU WON!", WINDOW_WIDTH / 2 - 125, WINDOW_HEIGHT / 2 - 10);
          g.setFont(new Font("Times New Roman", Font.BOLD, 25));
-         g.drawString("PRESS N FOR NEW GAME!", WINDOW_WIDTH / 2 - 210, WINDOW_HEIGHT / 2 + 30);
+         g.drawString("PRESS N FOR NEW GAME!", WINDOW_WIDTH / 2 - 160, WINDOW_HEIGHT / 2 + 30);
          player = null;
       }
    }

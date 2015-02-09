@@ -1,5 +1,7 @@
 import javax.swing.JFrame;
 
+import maze.*;
+
 public class Start extends JFrame
 {
 

@@ -1,3 +1,5 @@
+package maze;
+
 public class DisjSets {
    public int[] arr;
    
